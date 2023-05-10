@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTableExtraction", "WebTableExtraction\WebTableExtraction.csproj", "{5EB3E314-FB2C-4252-A21A-9AC064503F29}"
+EndProject
+Project("{202899A3-C531-4771-9089-0213D66978AE}") = "WebTableExtraction_Scope", "WebTableExtraction_Scope\WebTableExtraction_Scope.scopeproj", "{E0142E1D-00E6-4F61-89B9-E5658F7AD2EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableExtraction_ExcelAddin", "TableExtraction_ExcelAddin\TableExtraction_ExcelAddin.csproj", "{621F0110-A9B9-4169-BD30-A90E6B3DF414}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5EB3E314-FB2C-4252-A21A-9AC064503F29} = {5EB3E314-FB2C-4252-A21A-9AC064503F29}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://vstfpg04:8080/tfs/pg04
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = TableExtraction_ExcelAddin\\TableExtraction_ExcelAddin.csproj
+		SccProjectName1 = TableExtraction_ExcelAddin
+		SccLocalPath1 = TableExtraction_ExcelAddin
+		SccProjectUniqueName2 = WebTableExtraction\\WebTableExtraction.csproj
+		SccProjectName2 = WebTableExtraction
+		SccLocalPath2 = WebTableExtraction
+		SccProjectUniqueName3 = WebTableExtraction_Scope\\WebTableExtraction_Scope.scopeproj
+		SccProjectName3 = WebTableExtraction_Scope
+		SccLocalPath3 = WebTableExtraction_Scope
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EB3E314-FB2C-4252-A21A-9AC064503F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EB3E314-FB2C-4252-A21A-9AC064503F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EB3E314-FB2C-4252-A21A-9AC064503F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EB3E314-FB2C-4252-A21A-9AC064503F29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0142E1D-00E6-4F61-89B9-E5658F7AD2EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0142E1D-00E6-4F61-89B9-E5658F7AD2EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0142E1D-00E6-4F61-89B9-E5658F7AD2EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0142E1D-00E6-4F61-89B9-E5658F7AD2EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{621F0110-A9B9-4169-BD30-A90E6B3DF414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{621F0110-A9B9-4169-BD30-A90E6B3DF414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{621F0110-A9B9-4169-BD30-A90E6B3DF414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{621F0110-A9B9-4169-BD30-A90E6B3DF414}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

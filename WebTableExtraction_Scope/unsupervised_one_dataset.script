@@ -1,0 +1,116 @@
+﻿//Script GUID:73b1a85e-847c-4e68-b9d1-0fc2b74f6a31
+//Used for tracking history
+//Script GUID:e98a89c0-5394-4a58-aa90-cec7a0c51287
+//Used for tracking history
+//Script GUID:6be54cec-b974-4ebd-8bf5-7554664953bf
+//Used for tracking history
+//Script GUID:057aa3d6-930d-4189-8454-f479c19e6cfe
+//Used for tracking history
+
+
+#DECLARE numColsGiven bool = false;
+#DECLARE numExamples int = 0;
+
+#DECLARE all_parameters_1 string = @"MRA"+"__"+@numColsGiven+"__"+@numExamples+"__"+0+"__"+0+"__"+0.5+"__"+0.5+"__setting1_test";
+
+#IF(LOCAL)
+    #DECLARE input1 string  = @"F:\Running Results\June 27\WebTablesCorpus_200k\Sequenceall_sequences_tabulars_test.txt";
+  
+    #DECLARE output1_1 string = @"F:\Running Results\June 27\WebTablesCorpus_200k\" + @all_parameters_1 + @"One.txt";
+    #DECLARE result_analysis string = @"F:\Running Results\June 27\WebTablesCorpus_200k\unsupervised_typical_one_test.csv";
+
+    #DECLARE singleCellOccurrenceFilePath string = @"F:\Running Results\NewStats\singleCell_occur_combined.txt_joined.txt";
+    #DECLARE doubleCellOccurrenceFilepath string = @"F:\Running Results\NewStats\doubleCell_occur_combined.txt_joined.txt";
+    #DECLARE singleCellLanguageModelFilePath string = @"F:\Running Results\NewStats\singleCell_occur_combined.txt_language_model.txt";
+    #DECLARE KBAttri2ValuesFilePath string = @"F:\Running Results\NewStats\kb_attri_2_values.txt";
+    #DECLARE KBValue2AttrisFilePath string = @"F:\Running Results\NewStats\kb_value_2_attris.txt";
+
+#ELSE
+    #DECLARE input1 string  = @"/my/WebTablesCorpus_200k/Sequenceall_sequences_tabulars_test.txt";
+    #DECLARE output1_1 string = @"/my/WebTablesCorpus_200k/" + @all_parameters_1 + @"One.txt";
+   
+
+
+    #DECLARE result_analysis string = @"/my/unsupervised_typical_one_test.csv";
+
+
+ /*   #DECLARE singleCellOccurrenceFilePath string = @"/my/GlobalStats/singleCell_occur_combined.txt_numwildcardFalse_joined.txt";
+    #DECLARE doubleCellOccurrenceFilepath_1 string = @"/my/GlobalStats/doubleCell_occur_combined.txt_numwildcardFalse_joined_1.txt";
+    #DECLARE doubleCellOccurrenceFilepath_2 string = @"/my/GlobalStats/doubleCell_occur_combined.txt_numwildcardFalse_joined_2.txt";
+    #DECLARE doubleCellOccurrenceFilepath string = @doubleCellOccurrenceFilepath_1+"\t"+@doubleCellOccurrenceFilepath_2;
+    #DECLARE singleCellLanguageModelFilePath string = @"/my/GlobalStats/singleCell_occur_combined.txt_language_model.txt";
+    RESOURCE @singleCellOccurrenceFilePath;
+    RESOURCE @doubleCellOccurrenceFilepath_1;
+    RESOURCE @doubleCellOccurrenceFilepath_2;
+    RESOURCE @singleCellLanguageModelFilePath;
+    #DECLARE KBAttri2ValuesFilePath string = @"/my/ScoringStats/kb_attri_2_values.txt";
+    #DECLARE KBValue2AttrisFilePath string = @"/my/ScoringStats/kb_value_2_attris.txt";
+    RESOURCE @KBAttri2ValuesFilePath;
+    RESOURCE @KBValue2AttrisFilePath;
+*/
+
+    #DECLARE singleCellOccurrenceFilePath string = @"/my/GlobalStats/New/singleCell_occur_combined.txt_joined.txt";
+    #DECLARE doubleCellOccurrenceFilepath string = @"/my/GlobalStats/New/doubleCell_occur_combined.txt_joined.txt";
+    #DECLARE singleCellLanguageModelFilePath string = @"/my/GlobalStats/New/singleCell_occur_combined.txt_language_model.txt";
+    #DECLARE KBAttri2ValuesFilePath string = @"/my/GlobalStats/New/kb_attri_2_values.txt";
+    #DECLARE KBValue2AttrisFilePath string = @"/my/GlobalStats/New/kb_value_2_attris.txt";
+    RESOURCE @singleCellOccurrenceFilePath;
+    RESOURCE @doubleCellOccurrenceFilepath;
+    RESOURCE @singleCellLanguageModelFilePath;
+    RESOURCE  @KBAttri2ValuesFilePath;
+    RESOURCE @KBValue2AttrisFilePath;
+
+#ENDIF
+
+
+//One setting
+//Extract input and ground truth table
+rs1_1 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line: string
+    FROM @input1
+    USING DefaultTextExtractor();
+
+
+//Process each line in the input table
+rs1_final_1 =
+    PROCESS rs1_1
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_1, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_1
+TO @output1_1;
+
+
+
+//Result Analysis for each dataset
+rs1_1_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_1;
+
+
+rs1_final_1_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_1;
+
+
+rs1_1_analysis =
+    SELECT  @input1 AS dataset,
+            @all_parameters_1 AS setting,
+            MyHelper.analyze(@input1, @all_parameters_1,dataset_ground_line, dataset_aligned_line,@singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_1_stream
+    CROSS JOIN rs1_final_1_stream;
+
+
+
+
+
+//Union all results
+all_analysis =
+    SELECT *
+    FROM rs1_1_analysis;
+
+OUTPUT all_analysis
+TO @result_analysis;

@@ -1,0 +1,37 @@
+﻿//Script GUID:626af866-c718-4222-b5fe-6e2164f7810d
+//Used for tracking history
+
+
+#IF(LOCAL)
+   
+    #DECLARE inputList string = @"F:\WebLists\WikiSmall\WebLists.0.0..15.txt";
+    #DECLARE outputList string = @"F:\WebLists\WikiSmall\extractedLists.txt";
+#ELSE
+
+    #DECLARE inputList string = @"http://cosmos09.osdinfra.net:88/cosmos/MSRWW.adhoc/users/krisgan/WebLists_HF_ALL_ALL_2014-07-11.0/WebLists.0.0..0.txt";
+    #DECLARE outputList string = @"/my/WebLists/extractedLists.txt";
+    
+#ENDIF
+
+
+
+//One setting
+//Extract input and ground truth table
+url_content =
+    EXTRACT url : string,
+            content : string
+    FROM @inputList
+    USING DefaultTextExtractor("-silent");
+
+
+//Process each line in the input table
+/*
+url_list =
+    PROCESS url_content
+    PRODUCE url,
+            list
+    USING HighParallelProcessor();
+*/
+
+OUTPUT url_content
+TO @outputList;

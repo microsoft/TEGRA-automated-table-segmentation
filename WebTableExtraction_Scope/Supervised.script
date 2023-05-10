@@ -1,0 +1,2688 @@
+﻿//Script GUID:73b1a85e-847c-4e68-b9d1-0fc2b74f6a31
+//Used for tracking history
+//Script GUID:e98a89c0-5394-4a58-aa90-cec7a0c51287
+//Used for tracking history
+//Script GUID:6be54cec-b974-4ebd-8bf5-7554664953bf
+//Used for tracking history
+//Script GUID:057aa3d6-930d-4189-8454-f479c19e6cfe
+//Used for tracking history
+
+
+#DECLARE numColsGiven bool = true;
+#DECLARE numExamples int = 2;
+#DECLARE s_occurWeight double = 0.5;
+#DECLARE s_typeWeight double = 0.5;
+#DECLARE d_occurWeight double = 0.5;
+#DECLARE d_syntacticWeight double = 0.5;
+
+
+#DECLARE all_parameters_1 string = @"MRA"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.5+"__"+0.5+"__"+0.0+"__"+1.0+"__setting1";
+#DECLARE all_parameters_2 string = @"ListExtract"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.5+"__"+0.5+"__"+0.0+"__"+1.0+"__setting2";
+
+#DECLARE all_parameters_3 string = @"MRA"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.5+"__"+0.5+"__"+0.3+"__"+0.7+"__setting3";
+#DECLARE all_parameters_4 string = @"ListExtract"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.5+"__"+0.5+"__"+0.3+"__"+0.7+"__setting4";
+
+#DECLARE all_parameters_5 string = @"MRA"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.5+"__"+0.5+"__"+0.5+"__"+0.5+"__setting5";
+#DECLARE all_parameters_6 string = @"ListExtract"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.5+"__"+0.5+"__"+0.5+"__"+0.5+"__setting6";
+
+#DECLARE all_parameters_7 string = @"MRA"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.5+"__"+0.5+"__"+0.7+"__"+0.3+"__setting7";
+#DECLARE all_parameters_8 string = @"ListExtract"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.5+"__"+0.5+"__"+0.7+"__"+0.3+"__setting8";
+
+#DECLARE all_parameters_9 string = @"MRA"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.5+"__"+0.5+"__"+1.0+"__"+0.0+"__setting9";
+#DECLARE all_parameters_10 string = @"ListExtract"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.5+"__"+0.5+"__"+1.0+"__"+0.0+"__setting10";
+
+#DECLARE all_parameters_11 string = @"MRA"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.0+"__"+1.0+"__"+0.5+"__"+0.5+"__setting11";
+#DECLARE all_parameters_12 string = @"ListExtract"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.0+"__"+1.0+"__"+0.5+"__"+0.5+"__setting12";
+
+#DECLARE all_parameters_13 string = @"MRA"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.3+"__"+0.7+"__"+0.5+"__"+0.5+"__setting13";
+#DECLARE all_parameters_14 string = @"ListExtract"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.3+"__"+0.7+"__"+0.5+"__"+0.5+"__setting14";
+
+#DECLARE all_parameters_15 string = @"MRA"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.5+"__"+0.5+"__"+0.5+"__"+0.5+"__setting15";
+#DECLARE all_parameters_16 string = @"ListExtract"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.5+"__"+0.5+"__"+0.5+"__"+0.5+"__setting16";
+
+#DECLARE all_parameters_17 string = @"MRA"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.7+"__"+0.3+"__"+0.5+"__"+0.5+"__setting17";
+#DECLARE all_parameters_18 string = @"ListExtract"+"__"+@numColsGiven+"__"+@numExamples+"__"+0.7+"__"+0.3+"__"+0.5+"__"+0.5+"__setting18";
+
+#DECLARE all_parameters_19 string = @"MRA"+"__"+@numColsGiven+"__"+@numExamples+"__"+1.0+"__"+0.0+"__"+0.5+"__"+0.5+"__setting19";
+#DECLARE all_parameters_20 string = @"ListExtract"+"__"+@numColsGiven+"__"+@numExamples+"__"+1.0+"__"+0.0+"__"+0.5+"__"+0.5+"__setting20";
+
+
+#IF(LOCAL)
+    #DECLARE input1 string  = @"D:\xuchu\TableStats\Enterprise_10k\Sequenceall_sequences_tabulars.txt";
+    #DECLARE input2 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\Sequenceall_sequences_tabulars.txt";
+    #DECLARE input3 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\Sequenceall_sequences_tabulars.txt";
+
+    #DECLARE output1_1 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_1 + @".txt";
+    #DECLARE output2_1 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_1 + @".txt";
+    #DECLARE output3_1 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_1 + @".txt";
+    
+   
+    #DECLARE output1_2 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_2 + @".txt";
+    #DECLARE output2_2 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_2 + @".txt";
+    #DECLARE output3_2 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_2 + @".txt";
+
+
+    #DECLARE output1_3 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_3 + @".txt";
+    #DECLARE output2_3 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_3 + @".txt";
+    #DECLARE output3_3 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_3 + @".txt";
+
+
+    #DECLARE output1_4 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_4 + @".txt";
+    #DECLARE output2_4 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_4 + @".txt";
+    #DECLARE output3_4 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_4 + @".txt";
+
+
+    #DECLARE output1_5 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_5 + @".txt";
+    #DECLARE output2_5 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_5 + @".txt";
+    #DECLARE output3_5 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_5 + @".txt";
+
+
+    #DECLARE output1_6 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_6 + @".txt";
+    #DECLARE output2_6 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_6 + @".txt";
+    #DECLARE output3_6 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_6 + @".txt";
+
+
+    #DECLARE output1_7 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_7 + @".txt";
+    #DECLARE output2_7 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_7 + @".txt";
+    #DECLARE output3_7 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_7 + @".txt";
+
+
+    #DECLARE output1_8 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_8 + @".txt";
+    #DECLARE output2_8 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_8 + @".txt";
+    #DECLARE output3_8 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_8 + @".txt";
+
+
+    #DECLARE output1_9 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_9 + @".txt";
+    #DECLARE output2_9 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_9 + @".txt";
+    #DECLARE output3_9 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_9 + @".txt";
+
+
+    #DECLARE output1_10 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_10 + @".txt";
+    #DECLARE output2_10 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_10 + @".txt";
+    #DECLARE output3_10 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_10 + @".txt";
+
+
+    #DECLARE output1_11 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_11 + @".txt";
+    #DECLARE output2_11 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_11 + @".txt";
+    #DECLARE output3_11 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_11 + @".txt";
+
+
+    #DECLARE output1_12 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_12 + @".txt";
+    #DECLARE output2_12 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_12 + @".txt";
+    #DECLARE output3_12 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_12 + @".txt";
+
+
+    #DECLARE output1_13 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_13 + @".txt";
+    #DECLARE output2_13 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_13 + @".txt";
+    #DECLARE output3_13 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_13 + @".txt";
+
+
+    #DECLARE output1_14 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_14 + @".txt";
+    #DECLARE output2_14 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_14 + @".txt";
+    #DECLARE output3_14 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_14 + @".txt";
+
+
+    #DECLARE output1_15 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_15 + @".txt";
+    #DECLARE output2_15 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_15 + @".txt";
+    #DECLARE output3_15 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_15 + @".txt";
+
+
+    #DECLARE output1_16 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_16 + @".txt";
+    #DECLARE output2_16 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_16 + @".txt";
+    #DECLARE output3_16 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_16 + @".txt";
+
+
+    #DECLARE output1_17 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_17 + @".txt";
+    #DECLARE output2_17 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_17 + @".txt";
+    #DECLARE output3_17 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_17 + @".txt";
+
+
+    #DECLARE output1_18 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_18 + @".txt";
+    #DECLARE output2_18 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_18 + @".txt";
+    #DECLARE output3_18 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_18 + @".txt";
+
+
+    #DECLARE output1_19 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_19 + @".txt";
+    #DECLARE output2_19 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_19 + @".txt";
+    #DECLARE output3_19 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_19 + @".txt";
+
+
+    #DECLARE output1_20 string = @"D:\xuchu\TableStats\Enterprise_10k\" + @all_parameters_20 + @".txt";
+    #DECLARE output2_20 string = @"D:\xuchu\TableStats\General_WebTablesCorpus_10k\" + @all_parameters_20 + @".txt";
+    #DECLARE output3_20 string = @"D:\xuchu\TableStats\WebTablesCorpus_200k\" + @all_parameters_20 + @".txt";
+
+
+
+    #DECLARE result_analysis string = @"D:\xuchu\TableStats\supervised_all.csv";
+
+
+    #DECLARE singleCellOccurrenceFilePath string = @"D:\xuchu\TableStats\combined for yeye\singleCell_occur_combined.txt_numwildcardFalse_joined.txt";
+    #DECLARE doubleCellOccurrenceFilepath string = @"D:\xuchu\TableStats\combined for yeye\doubleCell_occur_combined.txt_numwildcardFalse_joined.txt";
+    #DECLARE singleCellLanguageModelFilePath string = @"D:\xuchu\TableStats\combined for yeye\singleCell_occur_combined.txt_language_model.txt";
+    #DECLARE KBAttri2ValuesFilePath string = @"D:\xuchu\TableStats\combined for yeye\kb_attri_2_values.txt";
+    #DECLARE KBValue2AttrisFilePath string = @"D:\xuchu\TableStats\combined for yeye\kb_value_2_attris.txt";
+#ELSE
+    #DECLARE input1 string  = @"/my/Enterprise_10k/Sequenceall_sequences_tabulars.txt";
+    #DECLARE input2 string = @"/my/General_WebTablesCorpus_10k/Sequenceall_sequences_tabulars.txt";
+    #DECLARE input3 string = @"/my/WebTablesCorpus_200k/Sequenceall_sequences_tabulars.txt";
+
+
+    #DECLARE output1_1 string = @"/my/Enterprise_10k/" + @all_parameters_1 + @".txt";
+    #DECLARE output2_1 string = @"/my/General_WebTablesCorpus_10k/"+ @all_parameters_1 +@".txt";
+    #DECLARE output3_1 string = @"/my/WebTablesCorpus_200k/"+ @all_parameters_1 + @".txt";
+   
+     #DECLARE output1_2 string = @"/my/Enterprise_10k/"+@all_parameters_2+@".txt";
+    #DECLARE output2_2 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_2+@".txt";
+    #DECLARE output3_2 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_2+@".txt";
+
+
+    #DECLARE output1_3 string = @"/my/Enterprise_10k/"+@all_parameters_3+@".txt";
+    #DECLARE output2_3 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_3+@".txt";
+    #DECLARE output3_3 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_3+@".txt";
+
+
+    #DECLARE output1_4 string = @"/my/Enterprise_10k/"+@all_parameters_4+@".txt";
+    #DECLARE output2_4 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_4+@".txt";
+    #DECLARE output3_4 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_4+@".txt";
+
+
+    #DECLARE output1_5 string = @"/my/Enterprise_10k/"+@all_parameters_5+@".txt";
+    #DECLARE output2_5 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_5+@".txt";
+    #DECLARE output3_5 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_5+@".txt";
+
+
+    #DECLARE output1_6 string = @"/my/Enterprise_10k/"+@all_parameters_6+@".txt";
+    #DECLARE output2_6 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_6+@".txt";
+    #DECLARE output3_6 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_6+@".txt";
+
+
+    #DECLARE output1_7 string = @"/my/Enterprise_10k/"+@all_parameters_7+@".txt";
+    #DECLARE output2_7 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_7+@".txt";
+    #DECLARE output3_7 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_7+@".txt";
+
+
+    #DECLARE output1_8 string = @"/my/Enterprise_10k/"+@all_parameters_8+@".txt";
+    #DECLARE output2_8 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_8+@".txt";
+    #DECLARE output3_8 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_8+@".txt";
+
+
+    #DECLARE output1_9 string = @"/my/Enterprise_10k/"+@all_parameters_9+@".txt";
+    #DECLARE output2_9 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_9+@".txt";
+    #DECLARE output3_9 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_9+@".txt";
+
+
+    #DECLARE output1_10 string = @"/my/Enterprise_10k/"+@all_parameters_10+@".txt";
+    #DECLARE output2_10 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_10+@".txt";
+    #DECLARE output3_10 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_10+@".txt";
+
+
+    #DECLARE output1_11 string = @"/my/Enterprise_10k/"+@all_parameters_11+@".txt";
+    #DECLARE output2_11 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_11+@".txt";
+    #DECLARE output3_11 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_11+@".txt";
+
+
+    #DECLARE output1_12 string = @"/my/Enterprise_10k/"+@all_parameters_12+@".txt";
+    #DECLARE output2_12 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_12+@".txt";
+    #DECLARE output3_12 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_12+@".txt";
+
+
+    #DECLARE output1_13 string = @"/my/Enterprise_10k/"+@all_parameters_13+@".txt";
+    #DECLARE output2_13 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_13+@".txt";
+    #DECLARE output3_13 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_13+@".txt";
+
+
+    #DECLARE output1_14 string = @"/my/Enterprise_10k/"+@all_parameters_14+@".txt";
+    #DECLARE output2_14 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_14+@".txt";
+    #DECLARE output3_14 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_14+@".txt";
+
+
+    #DECLARE output1_15 string = @"/my/Enterprise_10k/"+@all_parameters_15+@".txt";
+    #DECLARE output2_15 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_15+@".txt";
+    #DECLARE output3_15 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_15+@".txt";
+
+
+    #DECLARE output1_16 string = @"/my/Enterprise_10k/"+@all_parameters_16+@".txt";
+    #DECLARE output2_16 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_16+@".txt";
+    #DECLARE output3_16 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_16+@".txt";
+
+
+    #DECLARE output1_17 string = @"/my/Enterprise_10k/"+@all_parameters_17+@".txt";
+    #DECLARE output2_17 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_17+@".txt";
+    #DECLARE output3_17 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_17+@".txt";
+
+
+    #DECLARE output1_18 string = @"/my/Enterprise_10k/"+@all_parameters_18+@".txt";
+    #DECLARE output2_18 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_18+@".txt";
+    #DECLARE output3_18 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_18+@".txt";
+
+
+    #DECLARE output1_19 string = @"/my/Enterprise_10k/"+@all_parameters_19+@".txt";
+    #DECLARE output2_19 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_19+@".txt";
+    #DECLARE output3_19 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_19+@".txt";
+
+
+    #DECLARE output1_20 string = @"/my/Enterprise_10k/"+@all_parameters_20+@".txt";
+    #DECLARE output2_20 string = @"/my/General_WebTablesCorpus_10k/"+@all_parameters_20+@".txt";
+    #DECLARE output3_20 string = @"/my/WebTablesCorpus_200k/"+@all_parameters_20+@".txt";
+
+
+    #DECLARE result_analysis string = @"/my/supervised_all.csv";
+
+
+
+/*
+    #DECLARE singleCellOccurrenceFilePath string = @"/my/GlobalStats/singleCell_occur_combined.txt_numwildcardFalse_joined.txt";
+    #DECLARE doubleCellOccurrenceFilepath_1 string = @"/my/GlobalStats/doubleCell_occur_combined.txt_numwildcardFalse_joined_1.txt";
+    #DECLARE doubleCellOccurrenceFilepath_2 string = @"/my/GlobalStats/doubleCell_occur_combined.txt_numwildcardFalse_joined_2.txt";
+    #DECLARE doubleCellOccurrenceFilepath string = @doubleCellOccurrenceFilepath_1+"\t"+@doubleCellOccurrenceFilepath_2;
+    #DECLARE singleCellLanguageModelFilePath string = @"/my/GlobalStats/singleCell_occur_combined.txt_language_model.txt";
+    RESOURCE @singleCellOccurrenceFilePath;
+    RESOURCE @doubleCellOccurrenceFilepath_1;
+    RESOURCE @doubleCellOccurrenceFilepath_2;
+    RESOURCE @singleCellLanguageModelFilePath;
+    #DECLARE KBAttri2ValuesFilePath string = @"/my/ScoringStats/kb_attri_2_values.txt";
+    #DECLARE KBValue2AttrisFilePath string = @"/my/ScoringStats/kb_value_2_attris.txt";
+    RESOURCE @KBAttri2ValuesFilePath;
+    RESOURCE @KBValue2AttrisFilePath;
+*/
+    #DECLARE singleCellOccurrenceFilePath string = @"/my/GlobalStats/New/singleCell_occur_combined.txt_joined.txt";
+    #DECLARE doubleCellOccurrenceFilepath string = @"/my/GlobalStats/New/doubleCell_occur_combined.txt_joined.txt";
+    #DECLARE singleCellLanguageModelFilePath string = @"/my/GlobalStats/New/singleCell_occur_combined.txt_language_model.txt";
+    #DECLARE KBAttri2ValuesFilePath string = @"/my/GlobalStats/New/kb_attri_2_values.txt";
+    #DECLARE KBValue2AttrisFilePath string = @"/my/GlobalStats/New/kb_value_2_attris.txt";
+    RESOURCE @singleCellOccurrenceFilePath;
+    RESOURCE @doubleCellOccurrenceFilepath;
+    RESOURCE @singleCellLanguageModelFilePath;
+    RESOURCE  @KBAttri2ValuesFilePath;
+    RESOURCE @KBValue2AttrisFilePath;
+#ENDIF
+
+
+
+
+//One setting
+//Extract input and ground truth table
+rs1_1 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_1 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_1 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_1 =
+    PROCESS rs1_1
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_1, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_1
+TO @output1_1;
+
+
+rs2_final_1 =
+    PROCESS rs2_1
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_1, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_1
+TO @output2_1;
+
+
+rs3_final_1 =
+    PROCESS rs3_1
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_1, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_1
+TO @output3_1;
+
+//Result Analysis for each dataset
+rs1_1_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_1;
+
+
+rs1_final_1_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_1;
+
+
+rs1_1_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_1 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_1, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_1_stream
+    CROSS JOIN rs1_final_1_stream;
+
+
+rs2_1_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_1;
+
+
+rs2_final_1_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_1;
+
+
+rs2_1_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_1 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_1, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_1_stream
+    CROSS JOIN rs2_final_1_stream;
+
+
+
+
+rs3_1_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_1;
+
+
+rs3_final_1_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_1;
+
+
+rs3_1_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_1 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_1, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_1_stream
+    CROSS JOIN rs3_final_1_stream;
+
+
+
+//One setting
+//Extract input and ground truth table
+rs1_2 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_2 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_2 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_2 =
+    PROCESS rs1_2
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_2, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_2
+TO @output1_2;
+
+
+rs2_final_2 =
+    PROCESS rs2_2
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_2, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_2
+TO @output2_2;
+
+
+rs3_final_2 =
+    PROCESS rs3_2
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_2, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_2
+TO @output3_2;
+
+//Result Analysis for each dataset
+rs1_2_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_2;
+
+
+rs1_final_2_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_2;
+
+
+rs1_2_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_2 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_2, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_2_stream
+    CROSS JOIN rs1_final_2_stream;
+
+
+rs2_2_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_2;
+
+
+rs2_final_2_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_2;
+
+
+rs2_2_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_2 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_2, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_2_stream
+    CROSS JOIN rs2_final_2_stream;
+
+
+
+
+rs3_2_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_2;
+
+
+rs3_final_2_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_2;
+
+
+rs3_2_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_2 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_2, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_2_stream
+    CROSS JOIN rs3_final_2_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_3 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_3 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_3 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_3 =
+    PROCESS rs1_3
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_3, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_3
+TO @output1_3;
+
+
+rs2_final_3 =
+    PROCESS rs2_3
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_3, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_3
+TO @output2_3;
+
+
+rs3_final_3 =
+    PROCESS rs3_3
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_3, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_3
+TO @output3_3;
+
+//Result Analysis for each dataset
+rs1_3_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_3;
+
+
+rs1_final_3_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_3;
+
+
+rs1_3_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_3 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_3, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_3_stream
+    CROSS JOIN rs1_final_3_stream;
+
+
+rs2_3_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_3;
+
+
+rs2_final_3_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_3;
+
+
+rs2_3_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_3 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_3, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_3_stream
+    CROSS JOIN rs2_final_3_stream;
+
+
+
+
+rs3_3_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_3;
+
+
+rs3_final_3_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_3;
+
+
+rs3_3_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_3 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_3, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_3_stream
+    CROSS JOIN rs3_final_3_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_4 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_4 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_4 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_4 =
+    PROCESS rs1_4
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_4, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_4
+TO @output1_4;
+
+
+rs2_final_4 =
+    PROCESS rs2_4
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_4, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_4
+TO @output2_4;
+
+
+rs3_final_4 =
+    PROCESS rs3_4
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_4, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_4
+TO @output3_4;
+
+//Result Analysis for each dataset
+rs1_4_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_4;
+
+
+rs1_final_4_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_4;
+
+
+rs1_4_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_4 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_4, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_4_stream
+    CROSS JOIN rs1_final_4_stream;
+
+
+rs2_4_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_4;
+
+
+rs2_final_4_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_4;
+
+
+rs2_4_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_4 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_4, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_4_stream
+    CROSS JOIN rs2_final_4_stream;
+
+
+
+
+rs3_4_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_4;
+
+
+rs3_final_4_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_4;
+
+
+rs3_4_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_4 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_4, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_4_stream
+    CROSS JOIN rs3_final_4_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_5 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_5 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_5 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_5 =
+    PROCESS rs1_5
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_5, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_5
+TO @output1_5;
+
+
+rs2_final_5 =
+    PROCESS rs2_5
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_5, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_5
+TO @output2_5;
+
+
+rs3_final_5 =
+    PROCESS rs3_5
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_5, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_5
+TO @output3_5;
+
+//Result Analysis for each dataset
+rs1_5_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_5;
+
+
+rs1_final_5_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_5;
+
+
+rs1_5_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_5 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_5, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_5_stream
+    CROSS JOIN rs1_final_5_stream;
+
+
+rs2_5_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_5;
+
+
+rs2_final_5_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_5;
+
+
+rs2_5_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_5 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_5, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_5_stream
+    CROSS JOIN rs2_final_5_stream;
+
+
+
+
+rs3_5_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_5;
+
+
+rs3_final_5_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_5;
+
+
+rs3_5_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_5 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_5, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_5_stream
+    CROSS JOIN rs3_final_5_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_6 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_6 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_6 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_6 =
+    PROCESS rs1_6
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_6, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_6
+TO @output1_6;
+
+
+rs2_final_6 =
+    PROCESS rs2_6
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_6, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_6
+TO @output2_6;
+
+
+rs3_final_6 =
+    PROCESS rs3_6
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_6, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_6
+TO @output3_6;
+
+//Result Analysis for each dataset
+rs1_6_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_6;
+
+
+rs1_final_6_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_6;
+
+
+rs1_6_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_6 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_6, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_6_stream
+    CROSS JOIN rs1_final_6_stream;
+
+
+rs2_6_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_6;
+
+
+rs2_final_6_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_6;
+
+
+rs2_6_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_6 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_6, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_6_stream
+    CROSS JOIN rs2_final_6_stream;
+
+
+
+
+rs3_6_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_6;
+
+
+rs3_final_6_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_6;
+
+
+rs3_6_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_6 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_6, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_6_stream
+    CROSS JOIN rs3_final_6_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_7 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_7 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_7 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_7 =
+    PROCESS rs1_7
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_7, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_7
+TO @output1_7;
+
+
+rs2_final_7 =
+    PROCESS rs2_7
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_7, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_7
+TO @output2_7;
+
+
+rs3_final_7 =
+    PROCESS rs3_7
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_7, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_7
+TO @output3_7;
+
+//Result Analysis for each dataset
+rs1_7_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_7;
+
+
+rs1_final_7_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_7;
+
+
+rs1_7_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_7 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_7, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_7_stream
+    CROSS JOIN rs1_final_7_stream;
+
+
+rs2_7_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_7;
+
+
+rs2_final_7_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_7;
+
+
+rs2_7_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_7 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_7, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_7_stream
+    CROSS JOIN rs2_final_7_stream;
+
+
+
+
+rs3_7_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_7;
+
+
+rs3_final_7_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_7;
+
+
+rs3_7_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_7 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_7, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_7_stream
+    CROSS JOIN rs3_final_7_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_8 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_8 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_8 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_8 =
+    PROCESS rs1_8
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_8, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_8
+TO @output1_8;
+
+
+rs2_final_8 =
+    PROCESS rs2_8
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_8, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_8
+TO @output2_8;
+
+
+rs3_final_8 =
+    PROCESS rs3_8
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_8, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_8
+TO @output3_8;
+
+//Result Analysis for each dataset
+rs1_8_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_8;
+
+
+rs1_final_8_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_8;
+
+
+rs1_8_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_8 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_8, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_8_stream
+    CROSS JOIN rs1_final_8_stream;
+
+
+rs2_8_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_8;
+
+
+rs2_final_8_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_8;
+
+
+rs2_8_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_8 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_8, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_8_stream
+    CROSS JOIN rs2_final_8_stream;
+
+
+
+
+rs3_8_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_8;
+
+
+rs3_final_8_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_8;
+
+
+rs3_8_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_8 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_8, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_8_stream
+    CROSS JOIN rs3_final_8_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_9 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_9 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_9 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_9 =
+    PROCESS rs1_9
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_9, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_9
+TO @output1_9;
+
+
+rs2_final_9 =
+    PROCESS rs2_9
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_9, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_9
+TO @output2_9;
+
+
+rs3_final_9 =
+    PROCESS rs3_9
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_9, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_9
+TO @output3_9;
+
+//Result Analysis for each dataset
+rs1_9_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_9;
+
+
+rs1_final_9_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_9;
+
+
+rs1_9_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_9 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_9, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_9_stream
+    CROSS JOIN rs1_final_9_stream;
+
+
+rs2_9_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_9;
+
+
+rs2_final_9_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_9;
+
+
+rs2_9_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_9 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_9, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_9_stream
+    CROSS JOIN rs2_final_9_stream;
+
+
+
+
+rs3_9_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_9;
+
+
+rs3_final_9_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_9;
+
+
+rs3_9_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_9 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_9, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_9_stream
+    CROSS JOIN rs3_final_9_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_10 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_10 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_10 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_10 =
+    PROCESS rs1_10
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_10, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_10
+TO @output1_10;
+
+
+rs2_final_10 =
+    PROCESS rs2_10
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_10, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_10
+TO @output2_10;
+
+
+rs3_final_10 =
+    PROCESS rs3_10
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_10, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_10
+TO @output3_10;
+
+//Result Analysis for each dataset
+rs1_10_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_10;
+
+
+rs1_final_10_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_10;
+
+
+rs1_10_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_10 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_10, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_10_stream
+    CROSS JOIN rs1_final_10_stream;
+
+
+rs2_10_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_10;
+
+
+rs2_final_10_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_10;
+
+
+rs2_10_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_10 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_10, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_10_stream
+    CROSS JOIN rs2_final_10_stream;
+
+
+
+
+rs3_10_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_10;
+
+
+rs3_final_10_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_10;
+
+
+rs3_10_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_10 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_10, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_10_stream
+    CROSS JOIN rs3_final_10_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_11 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_11 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_11 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_11 =
+    PROCESS rs1_11
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_11, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_11
+TO @output1_11;
+
+
+rs2_final_11 =
+    PROCESS rs2_11
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_11, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_11
+TO @output2_11;
+
+
+rs3_final_11 =
+    PROCESS rs3_11
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_11, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_11
+TO @output3_11;
+
+//Result Analysis for each dataset
+rs1_11_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_11;
+
+
+rs1_final_11_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_11;
+
+
+rs1_11_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_11 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_11, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_11_stream
+    CROSS JOIN rs1_final_11_stream;
+
+
+rs2_11_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_11;
+
+
+rs2_final_11_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_11;
+
+
+rs2_11_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_11 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_11, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_11_stream
+    CROSS JOIN rs2_final_11_stream;
+
+
+
+
+rs3_11_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_11;
+
+
+rs3_final_11_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_11;
+
+
+rs3_11_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_11 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_11, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_11_stream
+    CROSS JOIN rs3_final_11_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_12 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_12 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_12 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_12 =
+    PROCESS rs1_12
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_12, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_12
+TO @output1_12;
+
+
+rs2_final_12 =
+    PROCESS rs2_12
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_12, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_12
+TO @output2_12;
+
+
+rs3_final_12 =
+    PROCESS rs3_12
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_12, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_12
+TO @output3_12;
+
+//Result Analysis for each dataset
+rs1_12_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_12;
+
+
+rs1_final_12_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_12;
+
+
+rs1_12_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_12 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_12, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_12_stream
+    CROSS JOIN rs1_final_12_stream;
+
+
+rs2_12_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_12;
+
+
+rs2_final_12_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_12;
+
+
+rs2_12_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_12 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_12, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_12_stream
+    CROSS JOIN rs2_final_12_stream;
+
+
+
+
+rs3_12_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_12;
+
+
+rs3_final_12_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_12;
+
+
+rs3_12_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_12 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_12, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_12_stream
+    CROSS JOIN rs3_final_12_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_13 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_13 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_13 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_13 =
+    PROCESS rs1_13
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_13, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_13
+TO @output1_13;
+
+
+rs2_final_13 =
+    PROCESS rs2_13
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_13, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_13
+TO @output2_13;
+
+
+rs3_final_13 =
+    PROCESS rs3_13
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_13, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_13
+TO @output3_13;
+
+//Result Analysis for each dataset
+rs1_13_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_13;
+
+
+rs1_final_13_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_13;
+
+
+rs1_13_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_13 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_13, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_13_stream
+    CROSS JOIN rs1_final_13_stream;
+
+
+rs2_13_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_13;
+
+
+rs2_final_13_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_13;
+
+
+rs2_13_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_13 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_13, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_13_stream
+    CROSS JOIN rs2_final_13_stream;
+
+
+
+
+rs3_13_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_13;
+
+
+rs3_final_13_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_13;
+
+
+rs3_13_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_13 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_13, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_13_stream
+    CROSS JOIN rs3_final_13_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_14 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_14 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_14 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_14 =
+    PROCESS rs1_14
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_14, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_14
+TO @output1_14;
+
+
+rs2_final_14 =
+    PROCESS rs2_14
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_14, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_14
+TO @output2_14;
+
+
+rs3_final_14 =
+    PROCESS rs3_14
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_14, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_14
+TO @output3_14;
+
+//Result Analysis for each dataset
+rs1_14_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_14;
+
+
+rs1_final_14_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_14;
+
+
+rs1_14_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_14 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_14, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_14_stream
+    CROSS JOIN rs1_final_14_stream;
+
+
+rs2_14_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_14;
+
+
+rs2_final_14_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_14;
+
+
+rs2_14_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_14 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_14, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_14_stream
+    CROSS JOIN rs2_final_14_stream;
+
+
+
+
+rs3_14_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_14;
+
+
+rs3_final_14_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_14;
+
+
+rs3_14_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_14 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_14, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_14_stream
+    CROSS JOIN rs3_final_14_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_15 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_15 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_15 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_15 =
+    PROCESS rs1_15
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_15, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_15
+TO @output1_15;
+
+
+rs2_final_15 =
+    PROCESS rs2_15
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_15, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_15
+TO @output2_15;
+
+
+rs3_final_15 =
+    PROCESS rs3_15
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_15, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_15
+TO @output3_15;
+
+//Result Analysis for each dataset
+rs1_15_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_15;
+
+
+rs1_final_15_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_15;
+
+
+rs1_15_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_15 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_15, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_15_stream
+    CROSS JOIN rs1_final_15_stream;
+
+
+rs2_15_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_15;
+
+
+rs2_final_15_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_15;
+
+
+rs2_15_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_15 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_15, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_15_stream
+    CROSS JOIN rs2_final_15_stream;
+
+
+
+
+rs3_15_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_15;
+
+
+rs3_final_15_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_15;
+
+
+rs3_15_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_15 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_15, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_15_stream
+    CROSS JOIN rs3_final_15_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_16 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_16 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_16 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_16 =
+    PROCESS rs1_16
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_16, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_16
+TO @output1_16;
+
+
+rs2_final_16 =
+    PROCESS rs2_16
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_16, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_16
+TO @output2_16;
+
+
+rs3_final_16 =
+    PROCESS rs3_16
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_16, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_16
+TO @output3_16;
+
+//Result Analysis for each dataset
+rs1_16_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_16;
+
+
+rs1_final_16_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_16;
+
+
+rs1_16_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_16 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_16, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_16_stream
+    CROSS JOIN rs1_final_16_stream;
+
+
+rs2_16_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_16;
+
+
+rs2_final_16_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_16;
+
+
+rs2_16_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_16 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_16, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_16_stream
+    CROSS JOIN rs2_final_16_stream;
+
+
+
+
+rs3_16_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_16;
+
+
+rs3_final_16_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_16;
+
+
+rs3_16_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_16 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_16, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_16_stream
+    CROSS JOIN rs3_final_16_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_17 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_17 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_17 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_17 =
+    PROCESS rs1_17
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_17, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_17
+TO @output1_17;
+
+
+rs2_final_17 =
+    PROCESS rs2_17
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_17, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_17
+TO @output2_17;
+
+
+rs3_final_17 =
+    PROCESS rs3_17
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_17, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_17
+TO @output3_17;
+
+//Result Analysis for each dataset
+rs1_17_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_17;
+
+
+rs1_final_17_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_17;
+
+
+rs1_17_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_17 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_17, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_17_stream
+    CROSS JOIN rs1_final_17_stream;
+
+
+rs2_17_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_17;
+
+
+rs2_final_17_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_17;
+
+
+rs2_17_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_17 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_17, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_17_stream
+    CROSS JOIN rs2_final_17_stream;
+
+
+
+
+rs3_17_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_17;
+
+
+rs3_final_17_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_17;
+
+
+rs3_17_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_17 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_17, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_17_stream
+    CROSS JOIN rs3_final_17_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_18 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_18 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_18 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_18 =
+    PROCESS rs1_18
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_18, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_18
+TO @output1_18;
+
+
+rs2_final_18 =
+    PROCESS rs2_18
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_18, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_18
+TO @output2_18;
+
+
+rs3_final_18 =
+    PROCESS rs3_18
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_18, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_18
+TO @output3_18;
+
+//Result Analysis for each dataset
+rs1_18_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_18;
+
+
+rs1_final_18_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_18;
+
+
+rs1_18_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_18 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_18, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_18_stream
+    CROSS JOIN rs1_final_18_stream;
+
+
+rs2_18_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_18;
+
+
+rs2_final_18_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_18;
+
+
+rs2_18_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_18 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_18, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_18_stream
+    CROSS JOIN rs2_final_18_stream;
+
+
+
+
+rs3_18_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_18;
+
+
+rs3_final_18_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_18;
+
+
+rs3_18_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_18 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_18, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_18_stream
+    CROSS JOIN rs3_final_18_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_19 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_19 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_19 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_19 =
+    PROCESS rs1_19
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_19, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_19
+TO @output1_19;
+
+
+rs2_final_19 =
+    PROCESS rs2_19
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_19, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_19
+TO @output2_19;
+
+
+rs3_final_19 =
+    PROCESS rs3_19
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_19, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_19
+TO @output3_19;
+
+//Result Analysis for each dataset
+rs1_19_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_19;
+
+
+rs1_final_19_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_19;
+
+
+rs1_19_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_19 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_19, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_19_stream
+    CROSS JOIN rs1_final_19_stream;
+
+
+rs2_19_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_19;
+
+
+rs2_final_19_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_19;
+
+
+rs2_19_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_19 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_19, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_19_stream
+    CROSS JOIN rs2_final_19_stream;
+
+
+
+
+rs3_19_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_19;
+
+
+rs3_final_19_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_19;
+
+
+rs3_19_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_19 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_19, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_19_stream
+    CROSS JOIN rs3_final_19_stream;
+
+
+//One setting
+//Extract input and ground truth table
+rs1_20 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input1
+    USING DefaultTextExtractor();
+rs2_20 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input2
+    USING DefaultTextExtractor();
+rs3_20 =
+    EXTRACT table_name : string,
+            input_table_line : string,
+            ground_table_line : string
+    FROM @input3
+    USING DefaultTextExtractor();
+
+//Process each line in the input table
+rs1_final_20 =
+    PROCESS rs1_20
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input1, @all_parameters_20, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs1_final_20
+TO @output1_20;
+
+
+rs2_final_20 =
+    PROCESS rs2_20
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input2, @all_parameters_20, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs2_final_20
+TO @output2_20;
+
+
+rs3_final_20 =
+    PROCESS rs3_20
+    PRODUCE table_name,
+            alignedTable
+    USING HighParallelProcessor(@input3, @all_parameters_20, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath, @KBAttri2ValuesFilePath, @KBValue2AttrisFilePath);
+
+OUTPUT rs3_final_20
+TO @output3_20;
+
+//Result Analysis for each dataset
+rs1_20_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs1_20;
+
+
+rs1_final_20_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs1_final_20;
+
+
+rs1_20_analysis =
+    SELECT @input1 AS dataset,
+           @all_parameters_20 AS setting,
+           MyHelper.analyze(@input1, @all_parameters_20, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs1_20_stream
+    CROSS JOIN rs1_final_20_stream;
+
+
+rs2_20_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs2_20;
+
+
+rs2_final_20_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs2_final_20;
+
+
+rs2_20_analysis =
+    SELECT @input2 AS dataset,
+           @all_parameters_20 AS setting,
+           MyHelper.analyze(@input2, @all_parameters_20, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs2_20_stream
+    CROSS JOIN rs2_final_20_stream;
+
+
+
+
+rs3_20_stream =
+    SELECT MyCombine(table_name, ground_table_line) AS dataset_ground_line
+    FROM rs3_20;
+
+
+rs3_final_20_stream =
+    SELECT MyCombine(table_name, alignedTable) AS dataset_aligned_line
+    FROM rs3_final_20;
+
+
+rs3_20_analysis =
+    SELECT @input3 AS dataset,
+           @all_parameters_20 AS setting,
+           MyHelper.analyze(@input3, @all_parameters_20, dataset_ground_line, dataset_aligned_line, @singleCellOccurrenceFilePath, @doubleCellOccurrenceFilepath, @singleCellLanguageModelFilePath) AS log
+    FROM rs3_20_stream
+    CROSS JOIN rs3_final_20_stream;
+
+
+
+
+
+
+//Union all results
+all_analysis =
+    SELECT *
+    FROM rs1_1_analysis
+    UNION
+    SELECT *
+    FROM rs2_1_analysis
+    UNION
+    SELECT *
+    FROM rs3_1_analysis
+    
+    UNION
+    SELECT *
+    FROM rs1_2_analysis
+    UNION
+    SELECT *
+    FROM rs2_2_analysis
+    UNION
+    SELECT *
+    FROM rs3_2_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_3_analysis
+    UNION
+    SELECT *
+    FROM rs2_3_analysis
+    UNION
+    SELECT *
+    FROM rs3_3_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_4_analysis
+    UNION
+    SELECT *
+    FROM rs2_4_analysis
+    UNION
+    SELECT *
+    FROM rs3_4_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_5_analysis
+    UNION
+    SELECT *
+    FROM rs2_5_analysis
+    UNION
+    SELECT *
+    FROM rs3_5_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_6_analysis
+    UNION
+    SELECT *
+    FROM rs2_6_analysis
+    UNION
+    SELECT *
+    FROM rs3_6_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_7_analysis
+    UNION
+    SELECT *
+    FROM rs2_7_analysis
+    UNION
+    SELECT *
+    FROM rs3_7_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_8_analysis
+    UNION
+    SELECT *
+    FROM rs2_8_analysis
+    UNION
+    SELECT *
+    FROM rs3_8_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_9_analysis
+    UNION
+    SELECT *
+    FROM rs2_9_analysis
+    UNION
+    SELECT *
+    FROM rs3_9_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_10_analysis
+    UNION
+    SELECT *
+    FROM rs2_10_analysis
+    UNION
+    SELECT *
+    FROM rs3_10_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_11_analysis
+    UNION
+    SELECT *
+    FROM rs2_11_analysis
+    UNION
+    SELECT *
+    FROM rs3_11_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_12_analysis
+    UNION
+    SELECT *
+    FROM rs2_12_analysis
+    UNION
+    SELECT *
+    FROM rs3_12_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_13_analysis
+    UNION
+    SELECT *
+    FROM rs2_13_analysis
+    UNION
+    SELECT *
+    FROM rs3_13_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_14_analysis
+    UNION
+    SELECT *
+    FROM rs2_14_analysis
+    UNION
+    SELECT *
+    FROM rs3_14_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_15_analysis
+    UNION
+    SELECT *
+    FROM rs2_15_analysis
+    UNION
+    SELECT *
+    FROM rs3_15_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_16_analysis
+    UNION
+    SELECT *
+    FROM rs2_16_analysis
+    UNION
+    SELECT *
+    FROM rs3_16_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_17_analysis
+    UNION
+    SELECT *
+    FROM rs2_17_analysis
+    UNION
+    SELECT *
+    FROM rs3_17_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_18_analysis
+    UNION
+    SELECT *
+    FROM rs2_18_analysis
+    UNION
+    SELECT *
+    FROM rs3_18_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_19_analysis
+    UNION
+    SELECT *
+    FROM rs2_19_analysis
+    UNION
+    SELECT *
+    FROM rs3_19_analysis
+
+
+    UNION
+    SELECT *
+    FROM rs1_20_analysis
+    UNION
+    SELECT *
+    FROM rs2_20_analysis
+    UNION
+    SELECT *
+    FROM rs3_20_analysis;
+
+OUTPUT all_analysis
+TO @result_analysis;

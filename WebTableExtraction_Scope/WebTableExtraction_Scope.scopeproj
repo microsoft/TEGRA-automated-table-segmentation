@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputType>File</OutputType>
+    <AssemblyName>Algebra.xml</AssemblyName>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <Name>WebTableExtraction_Scope</Name>
+    <RootNamespace>WebTableExtraction_Scope</RootNamespace>
+    <VCSelectionInProjectProperty>&lt;Use Current VC in VC Selector&gt;</VCSelectionInProjectProperty>
+    <CosmosRuntimeVersion>Default</CosmosRuntimeVersion>
+    <ScopePath>%24(SCRIPT_DIR);%24(CLUSTER_ROOT);%24(SCOPE_DIR)</ScopePath>
+    <InputStreamSearchPath>%24(SCRIPT_DIR);%24(CLUSTER_ROOT);%24(PROJECT_DIR)</InputStreamSearchPath>
+    <OutputStreamPath>%24(PROJECT_DIR)</OutputStreamPath>
+    <VertexDebugSolution>false</VertexDebugSolution>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Script Include="MRA_A_Star_Appro.script" />
+    <Script Include="MRA_A_Star_Yes_No.script" />
+    <Script Include="MRA_VaryingDoubleCellWeight.script" />
+    <Script Include="MRA_Varying_Aggressiveness.script" />
+    <Script Include="Unsupervised_One.script">
+      <RemoveUselessParameters>True</RemoveUselessParameters>
+      <ScopeOldParameters>
+      </ScopeOldParameters>
+      <ScopeClusterParameters>
+      </ScopeClusterParameters>
+    </Script>
+    <Script Include="Supervised_One.script">
+      <RemoveUselessParameters>True</RemoveUselessParameters>
+      <ScopeOldParameters>
+      </ScopeOldParameters>
+      <ScopeClusterParameters>
+      </ScopeClusterParameters>
+    </Script>
+    <Script Include="Supervised.script" />
+    <Script Include="Unsupervised.script" />
+    <Script Include="unsupervised_one_dataset.script" />
+    <Script Include="VaryingSupervisionLevel.script" />
+    <Script Include="WebLists.script" />
+    <ScriptCode Include="MRA_A_Star_Appro.script.cs">
+      <DependentUpon>MRA_A_Star_Appro.script</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="MRA_A_Star_Yes_No.script.cs">
+      <DependentUpon>MRA_A_Star_Yes_No.script</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="MRA_VaryingDoubleCellWeight.script.cs">
+      <DependentUpon>MRA_VaryingDoubleCellWeight.script</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="MRA_Varying_Aggressiveness.script.cs">
+      <DependentUpon>MRA_Varying_Aggressiveness.script</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Unsupervised_One.script.cs">
+      <DependentUpon>Unsupervised_One.script</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Supervised_One.script.cs">
+      <DependentUpon>Supervised_One.script</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Supervised.script.cs">
+      <DependentUpon>Supervised.script</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Unsupervised.script.cs">
+      <DependentUpon>Unsupervised.script</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="unsupervised_one_dataset.script.cs">
+      <DependentUpon>unsupervised_one_dataset.script</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="VaryingSupervisionLevel.script.cs">
+      <DependentUpon>VaryingSupervisionLevel.script</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="WebLists.script.cs">
+      <DependentUpon>WebLists.script</DependentUpon>
+    </ScriptCode>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebTableExtraction\WebTableExtraction.csproj">
+      <Name>WebTableExtraction</Name>
+      <Project>{5eb3e314-fb2c-4252-a21a-9ac064503f29}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(AppData)\Microsoft\ScopeStudio\MsBuild\1.0\Scope.targets" />
+  <PropertyGroup>
+    <ProjectGuid>e0142e1d-00e6-4f61-89b9-e5658f7ad2ec</ProjectGuid>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+</Project>
